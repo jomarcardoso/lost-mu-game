@@ -1,8 +1,11 @@
-import { Server } from './server.ts';
+import { Routing } from "./routing.ts";
+import { Server } from "./server.ts";
 
 class Start {
   constructor() {
-    new Server();
+    const server = new Server();
+
+    new Routing(server.app);
   }
 }
 
