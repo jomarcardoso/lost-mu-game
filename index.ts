@@ -1,5 +1,6 @@
 import { Routing } from "./routing.ts";
 import { Server } from "./server.ts";
+import "./db.ts";
 
 class Start {
   constructor() {

@@ -3,9 +3,12 @@
   "dependencies": {
     "@types/express": "^5.0.0",
     "express": "^4.21.2",
-    "express-handlebars": "^8.0.1"
+    "express-handlebars": "^8.0.1",
+    "postgres": "^3.4.5"
   },
   "scripts": {
+    "db": "docker start -i /lost-mu-game",
+    "db:create": "docker run --name lost-mu-game -p 5432:5432 -e POSTGRES_PASSWORD=admin postgres:latest",
     "start": "node ./index.ts"
   }
 }
