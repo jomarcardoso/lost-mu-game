@@ -1,28 +1,21 @@
 import postgres from "postgres";
 
+export const SQL = postgres({
+  host: "localhost",
+  port: 5432,
+  database: "lost_mu_game",
+  username: "postgres",
+  password: "admin",
+});
+
 export class Db {
   private sql: postgres.Sql;
 
-  constructor() {
-    this.sql = postgres({
-      host: "localhost",
-      port: 5432,
-      database: "lost_mu_game",
-      username: "postgres",
-      password: "admin",
-    });
+  constructor(sql = SQL) {
+    this.sql = sql;
   }
 
-  async get() {
-    const result = await this.sql`SELECT * FROM Item`;
-    return result;
+  async getAll(table = "") {
+    return this.sql`SELECT * FROM ${this.sql(table)}`;
   }
 }
-
-async function main() {
-  const db = new Db();
-  const result = await db.get();
-  console.log(result);
-}
-
-main();

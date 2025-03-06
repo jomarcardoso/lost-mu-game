@@ -1,10 +1,10 @@
 import { Routing } from "./routing.ts";
 import { Server } from "./server.ts";
-import "./db.ts";
+import { SQL } from "./db.ts";
 
 class Start {
   constructor() {
-    const server = new Server();
+    const server = new Server({ db: SQL });
 
     new Routing(server.app);
   }
