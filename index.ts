@@ -1,12 +1,12 @@
-import { Routing } from "./routing.ts";
-import { Server } from "./server.ts";
+import { Routing } from "./routes.ts";
+import { Server } from "./app.ts";
 import { SQL } from "./db.ts";
 
 class Start {
   constructor() {
-    const server = new Server({ db: SQL });
+    const { app } = new Server({ db: SQL });
 
-    new Routing(server.app);
+    app.use(new Routing().router);
   }
 }
 

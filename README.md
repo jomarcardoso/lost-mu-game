@@ -2,14 +2,14 @@
 
 Following the website lostmu.wiki to create a game.
 
-## Database
+## Diagrams
 
 ### Entity Relationship Diagrams
 
 ```mermaid
 erDiagram
-  CHAR ||--|{ CHAR_ITEM : can_equip
-  CHAR {
+  CHARCLASS ||--|{ CHARCLASS_ITEM : can_equip
+  CHARCLASS {
     int id
     string name
     string img
@@ -21,10 +21,10 @@ erDiagram
     int mp_by_lvl
   }
 
-  CHAR_ITEM }|--|| ITEM : can_be_equiped
-  CHAR_ITEM {
+  CHARCLASS_ITEM }|--|| ITEM : can_be_equiped
+  CHARCLASS_ITEM {
     int id
-    int char_id
+    int charClass_id
     int item_id
   }
 
@@ -68,10 +68,22 @@ erDiagram
   }
 ```
 
+### Sequence Diagrams
+
+```mermaid
+zenuml
+  title CREATE CHARACTER
+  CreateCharacterView->CreateCharacterController: send form filled
+  CreateCharacterController->CreateCharacterModel: send formatted data
+  CreateCharacterModel->db: persist data
+```
+
+## Database
+
 ### Create tables
 
 ```sql
-CREATE TABLE Char (
+CREATE TABLE CharClass (
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(255) NOT NULL,
   img VARCHAR(255),
@@ -106,12 +118,12 @@ CREATE TABLE Item (
   CONSTRAINT fk_type FOREIGN KEY (type_id) REFERENCES ItemType(id)
 );
 
-CREATE TABLE Char_Item (
+CREATE TABLE CharClass_Item (
   id INT GENERATED ALWAYS AS IDENTITY,
-  char_id INT NOT NULL,
+  charClass_id INT NOT NULL,
   item_id INT NOT NULL,
   PRIMARY KEY(id),
-  CONSTRAINT fk_char FOREIGN KEY (char_id) REFERENCES Char(id),
+  CONSTRAINT fk_charClass FOREIGN KEY (charClass_id) REFERENCES CharClass(id),
   CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES Item(id)
 );
 
@@ -152,19 +164,27 @@ CREATE TABLE Spot_Mob (
   CONSTRAINT fk_spot FOREIGN KEY (spot_id) REFERENCES Spot(id),
   CONSTRAINT fk_mob FOREIGN KEY (mob_id) REFERENCES Mob(id)
 );
+
+CREATE TABLE Char (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  name VARCHAR(255) NOT NULL,
+  charClass_id INT NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT fk_charClass FOREIGN KEY (charClass_id) REFERENCES CharClass(id)
+)
 ```
 
 ### Inser data into tables
 
 ```sql
--- characters
-INSERT INTO Char (name, str, agi, vit, ene, hp_by_lvl, mp_by_lvl)
+-- character classes
+INSERT INTO CharClass (name, str, agi, vit, ene, hp_by_lvl, mp_by_lvl)
 VALUES ('Dark Knight', 28, 20, 25, 10, 2, 0.5);
 
-INSERT INTO Char (name, str, agi, vit, ene, hp_by_lvl, mp_by_lvl)
+INSERT INTO CharClass (name, str, agi, vit, ene, hp_by_lvl, mp_by_lvl)
 VALUES ('Dark Wizard', 18, 18, 15, 30, 1, 2);
 
-INSERT INTO Char (name, str, agi, vit, ene, hp_by_lvl, mp_by_lvl)
+INSERT INTO CharClass (name, str, agi, vit, ene, hp_by_lvl, mp_by_lvl)
 VALUES ('Fairy Elf', 22, 25, 20, 15, 1, 1.5);
 
 -- item types

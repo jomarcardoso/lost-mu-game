@@ -1,0 +1,32 @@
+<main class="container is-max-desktop">
+  <div class="section">
+    <h1 class="is-size-1 has-text-centered has-text-weight-semibold">Create new
+      character</h1>
+
+    <form method="post" action="/create-character">
+      <div class="field">
+        <label for="name" class="label">name</label>
+        <div class="control">
+          <input type="text" class="input" id="name" name="name" />
+        </div>
+      </div>
+
+      <fieldset class="field">
+        <legend>class</legend>
+        {{#each data.classes}}
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="charclass_id" value="{{id}}" />
+              {{name}}
+            </label>
+          </div>
+        {{/each}}
+      </fieldset>
+
+      <div class="buttons">
+        <button class="button">cancel</button>
+        <input class="button is-primary" type="submit" value="create" />
+      </div>
+    </form>
+  </div>
+</main>
