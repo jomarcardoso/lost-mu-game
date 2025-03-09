@@ -17,6 +17,9 @@ export class Server {
     app.set("view engine", "handlebars");
     app.set("views", "./views");
     app.set("db", db);
+    app.use(express.raw());
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
   }
 
   listen(port = 3000) {
