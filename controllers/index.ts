@@ -1,1 +1,1 @@
-export * from "./create-character.controller.ts";
+export * from "./select-character.controller.ts";

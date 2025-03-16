@@ -73,9 +73,9 @@ erDiagram
 ```mermaid
 zenuml
   title CREATE CHARACTER
-  CreateCharacterView->CreateCharacterController: send form filled
-  CreateCharacterController->CreateCharacterModel: send formatted data
-  CreateCharacterModel->db: persist data
+  SelectCharacterView->SelectCharacterController: send form filled
+  SelectCharacterController->SelectCharacterModel: send formatted data
+  SelectCharacterModel->db: persist data
 ```
 
 ## Database

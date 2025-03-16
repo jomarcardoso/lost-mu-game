@@ -1,9 +1,23 @@
 <main class="container is-max-desktop">
   <div class="section">
-    <h1 class="is-size-1 has-text-centered has-text-weight-semibold">Create new
-      character</h1>
+    <h1 class="is-size-1 has-text-centered has-text-weight-semibold">
+      Create new character
+    </h1>
 
-    <form method="post" action="/create-character">
+    <form method="dete" action="/select-character">
+      {{#each data.chars}}
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="charclass_id" value="{{id}}" />
+            {{name}}
+          </label>
+        </div>
+      {{/each}}
+
+      <input type="submit" value="delete" />
+    </form>
+
+    <form method="post" action="/select-character">
       <div class="field">
         <label for="name" class="label">name</label>
         <div class="control">
