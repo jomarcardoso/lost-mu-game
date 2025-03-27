@@ -3,6 +3,8 @@ import { engine } from "express-handlebars";
 import type postgres from "postgres";
 import { SelectCharacterController } from "./controllers/select-character.controller.ts";
 import { GameController } from "./controllers/game.controller.ts";
+import { CharClassService } from "./services/char-class.service.ts";
+import { ItemService } from "./services/item.service.ts";
 
 export class App {
   app = express();
@@ -11,6 +13,7 @@ export class App {
     this.config(db);
     this.listen(port);
     this.routing();
+    this.loadCharClasses();
   }
 
   config(db: postgres.Sql) {
@@ -36,5 +39,23 @@ export class App {
     const gameControoler = new GameController();
 
     app.use(createCharacterController.router, gameControoler.router);
+  }
+
+  async loadCharClasses() {
+    const { app } = this;
+    const sql = app.get("db") as postgres.Sql;
+    const charClassService = new CharClassService(sql);
+    const charClasses = await charClassService.getAll();
+
+    app.set("charClasses", charClasses);
+  }
+
+  async loadItems() {
+    const { app } = this;
+    const sql = app.get("db") as postgres.Sql;
+    const itemService = new ItemService(sql);
+    const items = await itemService.getAll();
+
+    app.set("items", items);
   }
 }

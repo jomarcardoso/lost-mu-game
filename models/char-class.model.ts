@@ -1,36 +1,24 @@
-import type postgres from "postgres";
-import type { CharClassSchema } from "../schemas.ts";
-import type { CharClass } from "../entities.ts";
-import { Model } from "../model.ts";
+export class CharClassModel {
+  static readonly CHAR_CLASS_TABLE = "charclass";
+  id: number;
+  name: string;
+  img?: string;
+  str: number;
+  agi: number;
+  vit: number;
+  ene: number;
+  hp_by_lvl: number;
+  mp_by_lvl: number;
 
-export class CharClassModel extends Model<CharClassSchema> {
-  tableName = "charclass";
-
-  // protected toSchema(data: CharClass): CharClassSchema {
-  //   return {
-  //     id: data.id,
-  //     name: data.name,
-  //     img: data.img,
-  //     str: data.str,
-  //     agi: data.agi,
-  //     vit: data.vit,
-  //     ene: data.ene,
-  //     hpByLvl: data.hpByLvl,
-  //     mpByLvl: data.mpByLvl,
-  //   };
-  // }
-
-  // protected toEntity(data: CharClassSchema): CharClass {
-  //   return {
-  //     id: data.id,
-  //     name: data.name,
-  //     img: data.img,
-  //     str: data.str,
-  //     agi: data.agi,
-  //     vit: data.vit,
-  //     ene: data.ene,
-  //     hpByLvl: data.hp_by_lvl,
-  //     mpByLvl: data.mp_by_lvl,
-  //   };
-  // }
+  constructor(data: CharClassModel) {
+    this.id = data.id;
+    this.name = data.name;
+    this.img = data.img;
+    this.str = data.str;
+    this.agi = data.agi;
+    this.vit = data.vit;
+    this.ene = data.ene;
+    this.hp_by_lvl = data.hp_by_lvl;
+    this.mp_by_lvl = data.mp_by_lvl;
+  }
 }

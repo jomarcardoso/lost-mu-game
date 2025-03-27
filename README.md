@@ -118,15 +118,6 @@ CREATE TABLE Item (
   CONSTRAINT fk_type FOREIGN KEY (type_id) REFERENCES ItemType(id)
 );
 
-CREATE TABLE CharClass_Item (
-  id INT GENERATED ALWAYS AS IDENTITY,
-  charClass_id INT NOT NULL,
-  item_id INT NOT NULL,
-  PRIMARY KEY(id),
-  CONSTRAINT fk_charClass FOREIGN KEY (charClass_id) REFERENCES CharClass(id),
-  CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES Item(id)
-);
-
 CREATE TABLE Map (
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(255) NOT NULL,
